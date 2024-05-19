@@ -250,7 +250,7 @@ def connect(name):
     
 def connect_without_name():
     try:
-        send_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@aria-label="Send now"]')))
+        send_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@aria-label="Send without a note"]')))
         action.click(send_button).perform()
         
         # close the irritating popup "You are growing your network", "You are approaching to the weekly limit", etc.
