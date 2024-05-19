@@ -21,6 +21,9 @@ LinkedIn constantly updates its pages elements' selectors. If You would like to 
 inquiries: https://t.me/nakigoe
 
 ⭐ Add stars to all my repositories on GitHub: https://github.com/nakigoe
+<b>19 May 2024 update:</b>
+
+Selectors update.
 
 <b>3 February 2024 update:</b>
 
