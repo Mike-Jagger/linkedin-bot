@@ -29,7 +29,7 @@ fi
 pip install selenium
 
 # Goto bot folder
-cd bot
+cd bot/
 
 # Run the Python script based on the OS
 if [ "$OS_TYPE" = "Windows" ]; then
