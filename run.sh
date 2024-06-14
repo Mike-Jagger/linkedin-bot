@@ -28,6 +28,9 @@ fi
 # Install Python dependencies
 pip install selenium
 
+# Goto bot folder
+cd bot
+
 # Run the Python script based on the OS
 if [ "$OS_TYPE" = "Windows" ]; then
     python send.py

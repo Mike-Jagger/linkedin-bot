@@ -11,6 +11,9 @@ IF %ERRORLEVEL% NEQ 0 (
 REM Install dependencies
 pip install selenium
 
+REM Goto bot folder
+cd bot
+
 REM Run the Python script
 python send.py
 
