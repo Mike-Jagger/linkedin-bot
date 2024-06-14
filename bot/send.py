@@ -51,8 +51,6 @@ for i in range(number_of_messages): #the number of messages in the directory
     message.append(text_file.read())
     text_file.close()
 
-username = os.environ['LINKEDIN_USERNAME']
-password = os.environ['LINKEDIN_PASSWORD']
 login_page = "https://www.linkedin.com/login"
 
 weekly_limit=200
@@ -77,7 +75,7 @@ linkedin_occupations = ['Academic Advisor', 'Accountant', 'Actor', 'Advocate', '
 
 custom_search_array = []
 
-for location in uk_locations:
+for location in uk_locations+us_locations:
     for occupation in linkedin_occupations:
         custom_search_array.append(f"https://www.linkedin.com/search/results/people/?keywords={quote(occupation)}%20{quote(location)}&network=%5B%22S%22%5D")
 
@@ -160,6 +158,9 @@ def navigate_and_check(probe_page):
         return False
    
 def login():
+    username = input("Enter your LinkedIn username (email):")
+    password = input("Enter password: ")
+    driver.get(login_page)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//input[@id="username"]'))).send_keys(username)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//input[@id="password"]'))).send_keys(password)
     action.click(wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Sign in")]')))).perform()
@@ -177,9 +178,12 @@ def check_cookies_and_login():
             return # it is OK, you are logged in
         else: # cookies outdated, delete them
             delete_folder(get_first_folder(COOKIES_PATH)) # please keep the cookies.json and local_storage.json in the same folder to clear them successfully (or delete the outdated session files manually)
+            driver.quit()  # Close the browser if cookies are outdated
+    else:
+        driver.quit() # Close browser if no path exists
     
-    driver.get(login_page)
     time.sleep(3)
+    print("\nCOULDN'T LOAD COOKIES\n")
     login()
     navigate_and_check(links[0])
     
