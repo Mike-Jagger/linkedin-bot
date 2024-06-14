@@ -51,8 +51,8 @@ for i in range(number_of_messages): #the number of messages in the directory
     message.append(text_file.read())
     text_file.close()
 
-username = "nakigoetenshi@gmail.com"
-password = "Super Mega Password"
+username = "gerardledoux.mendjem@ucalgary.ca"
+password = "@B2c3d4e5f6g7@"
 login_page = "https://www.linkedin.com/login"
 
 weekly_limit=200
