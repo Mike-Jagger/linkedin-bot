@@ -12,6 +12,19 @@ esac
 
 echo "Detected OS: $OS_TYPE"
 
+# Function to check if Python is installed
+check_python_installed() {
+    command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1
+}
+
+# Check if Python is installed
+if check_python_installed; then
+    echo "Python is installed."
+else
+    echo "Python is not installed. Please install Python and try again."
+    exit 1
+fi
+
 # Install Python dependencies
 pip install selenium
 
@@ -19,7 +32,7 @@ pip install selenium
 if [ "$OS_TYPE" = "Windows" ]; then
     python send.py
 elif [ "$OS_TYPE" = "Linux" ] || [ "$OS_TYPE" = "Mac" ]; then
-    python3 send.py
+    python3 send.py || python send.py
 else
     echo "Unsupported OS: $OS_TYPE"
     exit 1
