@@ -36,9 +36,19 @@ options.add_argument(f"user-agent={user_agent}")
 options.add_experimental_option("detach", True)
 
 s = 20 # static standard time to wait for a single component on the page to appear, in seconds; increase it if you get server-side errors «try again later», decrease the number if You do not use a VPN and have a high-speed Internet connection
-driver = webdriver.Edge(options=options)
-action = ActionChains(driver)
-wait = WebDriverWait(driver,s)
+
+# Initialize driver, action, and wait globally
+driver = None
+action = None
+wait = None
+
+def initialize_driver():
+    global driver, action, wait
+    driver = webdriver.Edge(options=options)
+    action = ActionChains(driver)
+    wait = WebDriverWait(driver, s)
+
+initialize_driver()
 
 def custom_wait(driver, timeout, condition_type, locator_tuple):
     wait = WebDriverWait(driver, timeout)
@@ -165,6 +175,7 @@ def login(username, password):
     time.sleep(15)
     
 def check_cookies_and_login():
+    global driver, action, wait
     driver.get(login_page)  # Open login page first to set up cookies
     time.sleep(3)
 
@@ -178,14 +189,14 @@ def check_cookies_and_login():
             delete_folder(get_first_folder(COOKIES_PATH))  # Clear outdated cookies
 
     # If cookies are missing or outdated, close the browser, prompt for login, and reopen
-    driver.quit()
+    driver.close()
     print("\nCOULDN'T LOAD COOKIES\n")
     username = input("Enter your LinkedIn username (email): ")
     password = input("Enter password: ")
-    global driver
-    driver = webdriver.Edge(options=options)  # Reopen the browser
+    initialize_driver()
     login(username, password)
     navigate_and_check(links[0])
+
     
 def truncate_name(name, max_length):
     if len(name) <= max_length:
