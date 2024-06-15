@@ -7,6 +7,16 @@ Telegam: t.me/nakigoe
 $60 for 1 hour lesson
 Please place stars and share!!!
 '''
+
+# Ask if user wants to see automation or not
+headless = True
+should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+
+while should_run_in_headless.lower().strip() not in ['y', 'n']:
+    should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+
+if should_run_in_headless == 'n': headless = False
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
