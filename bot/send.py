@@ -178,9 +178,9 @@ def check_cookies_and_login():
             return # it is OK, you are logged in
         else: # cookies outdated, delete them
             delete_folder(get_first_folder(COOKIES_PATH)) # please keep the cookies.json and local_storage.json in the same folder to clear them successfully (or delete the outdated session files manually)
-            driver.quit()  # Close the browser if cookies are outdated
+            driver.close()  # Close the page if cookies are outdated
     else:
-        driver.quit() # Close browser if no path exists
+        driver.close() # Close page if no path exists
     
     time.sleep(3)
     print("\nCOULDN'T LOAD COOKIES\n")
