@@ -7,6 +7,16 @@ Telegam: t.me/nakigoe
 $60 for 1 hour lesson
 Please place stars and share!!!
 '''
+
+# Ask if user wants to see automation or not
+headless_mode = True
+should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+
+while should_run_in_headless.lower().strip() not in ['y', 'n']:
+    should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+
+if should_run_in_headless == 'n': headless_mode = False
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -34,6 +44,8 @@ options.add_argument("start-maximized")
 options.page_load_strategy = 'eager' #do not wait for images to load
 options.add_argument(f"user-agent={user_agent}")
 options.add_experimental_option("detach", True)
+if headless_mode:
+    options.add_argument("--headless")
 
 s = 20 # static standard time to wait for a single component on the page to appear, in seconds; increase it if you get server-side errors «try again later», decrease the number if You do not use a VPN and have a high-speed Internet connection
 
