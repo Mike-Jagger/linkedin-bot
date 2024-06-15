@@ -157,34 +157,34 @@ def navigate_and_check(probe_page):
     else: 
         return False
    
-def login():
-    username = input("Enter your LinkedIn username (email):")
-    password = input("Enter password: ")
-    driver.get(login_page)
+def login(username, password):
+    driver.get(login_page)  # Navigate to the login page
     wait.until(EC.element_to_be_clickable((By.XPATH, '//input[@id="username"]'))).send_keys(username)
     wait.until(EC.element_to_be_clickable((By.XPATH, '//input[@id="password"]'))).send_keys(password)
     action.click(wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Sign in")]')))).perform()
     time.sleep(15)
     
 def check_cookies_and_login():
-    driver.get(login_page) # you have to open some page first before trying to load cookies!
+    driver.get(login_page)  # Open login page first to set up cookies
     time.sleep(3)
-    
+
     if os.path.exists(COOKIES_PATH) and os.path.exists(LOCAL_STORAGE_PATH):
         add_cookies(load_data_from_json(COOKIES_PATH))
         add_local_storage(load_data_from_json(LOCAL_STORAGE_PATH))
-        
-        if navigate_and_check(links[0]): # just pick a first link to check if the cookies are OK
-            return # it is OK, you are logged in
-        else: # cookies outdated, delete them
-            delete_folder(get_first_folder(COOKIES_PATH)) # please keep the cookies.json and local_storage.json in the same folder to clear them successfully (or delete the outdated session files manually)
-            driver.close()  # Close the page if cookies are outdated
-    else:
-        driver.close() # Close page if no path exists
-    
-    time.sleep(3)
+
+        if navigate_and_check(links[0]):  # Check if cookies are valid
+            return  # Cookies are valid, no further action needed
+        else:  # Cookies are outdated, delete them
+            delete_folder(get_first_folder(COOKIES_PATH))  # Clear outdated cookies
+
+    # If cookies are missing or outdated, close the browser, prompt for login, and reopen
+    driver.quit()
     print("\nCOULDN'T LOAD COOKIES\n")
-    login()
+    username = input("Enter your LinkedIn username (email): ")
+    password = input("Enter password: ")
+    global driver
+    driver = webdriver.Edge(options=options)  # Reopen the browser
+    login(username, password)
     navigate_and_check(links[0])
     
 def truncate_name(name, max_length):
