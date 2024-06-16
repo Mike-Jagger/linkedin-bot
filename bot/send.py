@@ -9,21 +9,13 @@ Please place stars and share!!!
 '''
 
 # Ask if user wants to see automation or not
-<<<<<<< HEAD
 headless_mode = True
-=======
-headless = True
->>>>>>> b0ca5ed26f757eee6348855722f89eafb4ec01ff
 should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
 
 while should_run_in_headless.lower().strip() not in ['y', 'n']:
     should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
 
-<<<<<<< HEAD
 if should_run_in_headless == 'n': headless_mode = False
-=======
-if should_run_in_headless == 'n': headless = False
->>>>>>> b0ca5ed26f757eee6348855722f89eafb4ec01ff
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
