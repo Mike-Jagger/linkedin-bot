@@ -8,14 +8,19 @@ $60 for 1 hour lesson
 Please place stars and share!!!
 '''
 
-# Ask if user wants to see automation or not
+# Ask if user wants to see automation and send note or not
 headless_mode = True
+send_note = False
 should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+should_send_note = input("Do you want to send invites with notes? (Y/N): ")
 
 while should_run_in_headless.lower().strip() not in ['y', 'n']:
     should_run_in_headless = input("Do you want to see it in action? (Y/N): ")
+while should_run_in_headless.lower().strip() not in ['y', 'n']:
+    should_send_note = input("Do you want to send invites with notes? (Y/N): ")
 
-if should_run_in_headless == 'n': headless_mode = False
+if should_run_in_headless == 'y': headless_mode = False
+if should_send_note == 'y': headless_mode = True
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,7 +39,7 @@ class Status(Enum):
     SUCCESS = 0
     FAILURE = 1
 
-CONNECT_WITH_NAME = False # Set to True in case you want to see the script in its true glory and burn through your monthly limit of personalized connection requests
+CONNECT_WITH_NAME = send_note # Set to True in case you want to see the script in its true glory and burn through your monthly limit of personalized connection requests
 COOKIES_PATH = 'auth/cookies.json'
 LOCAL_STORAGE_PATH = 'auth/local_storage.json'
 user_agent = "My Standard Browser and Standard Device" # Replace with your desired user-agent string. You can find your current browser's user-agent by searching "What's my user-agent?" in a search engine
