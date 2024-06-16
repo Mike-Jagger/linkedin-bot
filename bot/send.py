@@ -20,11 +20,7 @@ while should_run_in_headless.lower().strip() not in ['y', 'n']:
     should_send_note = input("Do you want to send invites with notes? (Y/N): ")
 
 if should_run_in_headless == 'y': headless_mode = False
-<<<<<<< HEAD
 if should_send_note == 'y': send_note = True
-=======
-if should_send_note == 'y': headless_mode = True
->>>>>>> 417757b5650dca8a40ba846afba244692bcb7f54
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
